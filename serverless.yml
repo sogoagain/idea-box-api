@@ -1,0 +1,52 @@
+service: idea-box-api
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-2
+  stackName: idea-box-api-stack
+  apiName: idea-box-api
+  memorySize: 128
+
+  tags:
+    service: idea-box
+    environment: api
+    owner: sogoagain
+
+  role: ${env:AWS_IDEA_BOX_ROLE}
+
+  environment:
+    API_AWS_REGION: ${env:API_AWS_REGION}
+    DYANMODB_TABLE: ${env:DYANMODB_TABLE}
+
+functions:
+  hello:
+    name: idea-box-api-hello
+    handler: handler.hello
+    description: nice to meet you
+    events:
+      - http:
+          path: hello
+          method: get
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+    excludeFiles: src/**/*.test.js
+  serverless-offline:
+    httpPort: 4000
+  customDomain:
+    domainName: ${env:DOMAIN_NAME}
+    stage: ${self:provider.stage}
+    basePath: 'api'
+    createRoute53Record: true
+    certificateName: ${env:DOMAIN_CERT}
+    certificateArn: ${env:DOMAIN_CERT_ARN}
+
+plugins:
+  - serverless-aws-alias
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-webpack
+  - serverless-domain-manager
