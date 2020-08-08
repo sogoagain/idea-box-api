@@ -29,6 +29,15 @@ functions:
           path: hello
           method: get
 
+  getIdea:
+    name: idea-box-api-get-idea
+    handler: handler.getIdea
+    description: get random idea
+    events:
+      - http:
+          path: idea
+          method: get
+
 custom:
   webpack:
     webpackConfig: ./webpack.config.js

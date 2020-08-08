@@ -1,1 +1,1 @@
-module.exports = require('./src/IdeaBoxController');
+module.exports = require('./src/interfaces/IdeaBoxController');

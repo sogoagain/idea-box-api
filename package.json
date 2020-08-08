@@ -25,6 +25,7 @@
     "eslint-plugin-react": "^7.20.0",
     "given2": "^2.1.7",
     "jest": "^26.0.1",
+    "jest-dynalite": "^3.0.0",
     "jest-plugin-context": "^2.9.0",
     "serverless-aws-alias": "^1.8.0",
     "serverless-domain-manager": "^4.2.0",
@@ -38,7 +39,7 @@
     "start": "sls offline",
     "deploy": "sls deploy",
     "test": "jest",
-    "test:watch": "npm run test -- --watchAll",
+    "test:watch": "jest --watchAll",
     "lint": "eslint --ext .js ."
   },
   "repository": {
