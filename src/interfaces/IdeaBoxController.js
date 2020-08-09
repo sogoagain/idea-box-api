@@ -19,6 +19,20 @@ const getIdea = async () => {
   }
 }
 
+const postIdea = async (event) => {
+  try {
+    const idea = JSON.parse(event.body);
+    for (const [key, value] of Object.entries(idea)) {
+      validCategory(key);
+      validLength(value, 10);
+    }
+    await IdeaBoxService.createIdea(idea);
+    return respond(201, {});
+  } catch (err) {
+    return error(err);
+  }
+}
+
 const postIdeaItems = async (event) => {
   try {
     const idea = JSON.parse(event.body);
@@ -33,4 +47,4 @@ const postIdeaItems = async (event) => {
   }
 }
 
-module.exports = { hello, getIdea, postIdeaItems };
+module.exports = { hello, getIdea, postIdea, postIdeaItems };

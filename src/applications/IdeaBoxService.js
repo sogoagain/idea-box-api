@@ -1,22 +1,27 @@
-const IdeaBoxRepository = require('../models/IdeaBoxRepository');
+const ItemRepository = require('../models/ItemRepository');
+const IdeaRepository = require('../models/IdeaRepository');
 
 const getRandomIdea = async () => {
-  const { text: who } = await IdeaBoxRepository.findRandomByCategory('who');
-  const { text: what } = await IdeaBoxRepository.findRandomByCategory('what');
+  const { text: who } = await ItemRepository.findRandomByCategory('who');
+  const { text: what } = await ItemRepository.findRandomByCategory('what');
   return { who, what };
 };
+
+const createIdea = async (idea) => {
+  await IdeaRepository.saveIdea(idea, idea);
+}
 
 const createItems = async (idea) => {
   for (const [key, value] of Object.entries(idea)) {
     const category = key.trim();
     const text = value.trim();
-    const item = await IdeaBoxRepository.findByCategoryAndText(category, text);
+    const item = await ItemRepository.findByCategoryAndText(category, text);
     if (!item) {
-      await IdeaBoxRepository.saveItem(category, text);
+      await ItemRepository.saveItem(category, text);
     }
   }
 }
 
 module.exports = {
-  getRandomIdea, createItems,
+  getRandomIdea, createIdea, createItems,
 };

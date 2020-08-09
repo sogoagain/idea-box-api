@@ -1,9 +1,11 @@
-const { getRandomIdea, createItems } = require('./IdeaBoxService');
-const { findRandomByCategory, findByCategoryAndText, saveItem } = require('../models/IdeaBoxRepository');
+const { getRandomIdea, createIdea, createItems } = require('./IdeaBoxService');
+const { findRandomByCategory, findByCategoryAndText, saveItem } = require('../models/ItemRepository');
+const { saveIdea } = require('../models/IdeaRepository');
 
 const IDEA = require('../__fixtures__/idea');
 
-jest.mock('../models/IdeaBoxRepository');
+jest.mock('../models/ItemRepository');
+jest.mock('../models/IdeaRepository');
 
 describe('IdeaBoxService', () => {
   describe('getRandomIdea', () => {
@@ -23,6 +25,18 @@ describe('IdeaBoxService', () => {
         who: 'who',
         what: 'what',
       });
+    });
+  });
+
+  describe('createIdea', () => {
+    beforeEach(() => {
+      saveIdea.mockClear();
+    })
+
+    it('creates idea', async () => {
+      await createIdea(IDEA);
+
+      expect(saveIdea).toBeCalled();
     });
   });
 

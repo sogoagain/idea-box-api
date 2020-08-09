@@ -1,5 +1,5 @@
 const ddb = require('../utils/DynamodbClient');
-const IdeaBoxRepository = require('../models/IdeaBoxRepository');
+const ItemRepository = require('./ItemRepository');
 
 const WHO = require('../__fixtures__/item_who');
 
@@ -16,14 +16,14 @@ const mockQuery = (data) => {
   });
 }
 
-describe('IdeaBoxRepository', () => {
+describe('ItemRepository', () => {
   describe('findRandomByCategory', () => {
     beforeEach(() => {
       mockQuery(WHO);
     });
 
     it('returns random item by category', async () => {
-      const item = await IdeaBoxRepository.findRandomByCategory('who');
+      const item = await ItemRepository.findRandomByCategory('who');
 
       expect(item).toEqual({
         category: 'who',
@@ -40,7 +40,7 @@ describe('IdeaBoxRepository', () => {
     });
 
     it('returns item by category and text', async () => {
-      const item = await IdeaBoxRepository.findByCategoryAndText('who', '프로그래머');
+      const item = await ItemRepository.findByCategoryAndText('who', '프로그래머');
 
       expect(item).toEqual({
         category: 'who',
@@ -60,7 +60,7 @@ describe('IdeaBoxRepository', () => {
     });
 
     it('saves item', async () => {
-      await IdeaBoxRepository.saveItem('who', '프로그래머');
+      await ItemRepository.saveItem('who', '프로그래머');
 
       expect(ddb.put).toBeCalled();
     });

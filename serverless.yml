@@ -38,13 +38,22 @@ functions:
           path: idea
           method: get
 
+  postIdea:
+    name: idea-box-api-post-idea
+    handler: handler.postIdea
+    description: create idea
+    events:
+      - http:
+          path: ideas
+          method: post
+
   postIdeaItems:
     name: idea-box-api-post-idea-items
     handler: handler.postIdeaItems
     description: post idea items
     events:
       - http:
-          path: idea/items
+          path: ideas/items
           method: post
 
 custom:
