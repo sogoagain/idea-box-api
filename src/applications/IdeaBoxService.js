@@ -7,6 +7,13 @@ const getRandomIdea = async () => {
   return { who, what };
 };
 
+const getRecentIdeas = async () => {
+  const ideas = await IdeaRepository.findTop5();
+  return ideas.map(({ who, what }) => ({
+    who, what,
+  }));
+};
+
 const createIdea = async (idea) => {
   await IdeaRepository.saveIdea(idea, idea);
 }
@@ -23,5 +30,5 @@ const createItems = async (idea) => {
 }
 
 module.exports = {
-  getRandomIdea, createIdea, createItems,
+  getRandomIdea, getRecentIdeas, createIdea, createItems,
 };

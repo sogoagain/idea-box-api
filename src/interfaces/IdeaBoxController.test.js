@@ -1,5 +1,5 @@
-const { hello, getIdea, postIdea, postIdeaItems } = require('./IdeaBoxController');
-const { getRandomIdea } = require('../applications/IdeaBoxService');
+const { hello, getIdea, getIdeas, postIdea, postIdeaItems } = require('./IdeaBoxController');
+const { getRandomIdea, getRecentIdeas } = require('../applications/IdeaBoxService');
 
 const IDEA = require('../__fixtures__/idea');
 
@@ -26,6 +26,21 @@ describe('IdeaBoxController', () => {
 
       expect(response.statusCode).toBe(200);
       expect(body).toEqual(IDEA)
+    });
+  });
+
+  describe('getIdeas', () => {
+    beforeEach(() => {
+      getRecentIdeas.mockClear();
+      getRecentIdeas.mockResolvedValue([IDEA, IDEA]);
+    });
+
+    it('returns recent ideas', async () => {
+      const response = await getIdeas(jest.fn());
+      const body = JSON.parse(response.body);
+
+      expect(response.statusCode).toBe(200);
+      expect(body).toHaveLength(2);
     });
   });
 

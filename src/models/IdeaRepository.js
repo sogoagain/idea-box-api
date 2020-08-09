@@ -1,5 +1,22 @@
 const ddb = require('../utils/DynamodbClient');
 
+const findTop5 = async () => {
+  const { Items } = await ddb.query({
+    TableName: process.env.DYANMODB_TABLE,
+    KeyConditionExpression: "#category = :category",
+    ExpressionAttributeNames: {
+      "#category": "category",
+    },
+    ExpressionAttributeValues: {
+      ":category": 'idea',
+    },
+    ScanIndexForward: false,
+    Limit: 5,
+  }).promise();
+
+  return Items;
+};
+
 const saveIdea = async ({ who, what }) => {
   const idea = {
     category: 'idea',
@@ -14,4 +31,4 @@ const saveIdea = async ({ who, what }) => {
   }).promise();
 };
 
-module.exports = { saveIdea };
+module.exports = { findTop5, saveIdea };

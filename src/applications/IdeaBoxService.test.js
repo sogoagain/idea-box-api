@@ -1,8 +1,9 @@
-const { getRandomIdea, createIdea, createItems } = require('./IdeaBoxService');
+const { getRandomIdea, getRecentIdeas, createIdea, createItems } = require('./IdeaBoxService');
 const { findRandomByCategory, findByCategoryAndText, saveItem } = require('../models/ItemRepository');
-const { saveIdea } = require('../models/IdeaRepository');
+const { findTop5, saveIdea } = require('../models/IdeaRepository');
 
 const IDEA = require('../__fixtures__/idea');
+const getIdea = require('../__fixtures__/item_idea');
 
 jest.mock('../models/ItemRepository');
 jest.mock('../models/IdeaRepository');
@@ -25,6 +26,31 @@ describe('IdeaBoxService', () => {
         who: 'who',
         what: 'what',
       });
+    });
+  });
+
+  describe('getRecentIdeas', () => {
+    beforeEach(() => {
+      const ideas = [];
+      for (let i = 0; i < 5; i++) {
+        const idea = getIdea(Date.now() + i * 100, {
+          who: `프로그래머${i}`,
+          what: `맛있는 라면${i}`,
+        });
+        ideas.push(idea);
+      }
+      findTop5.mockClear();
+      findTop5.mockResolvedValue(ideas);
+    });
+
+    it('returns recent ideas', async () => {
+      const ideas = await getRecentIdeas();
+
+      expect(ideas[0]).toEqual({
+        who: "프로그래머0",
+        what: "맛있는 라면0",
+      });
+      expect(ideas).toHaveLength(5);
     });
   });
 

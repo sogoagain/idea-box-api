@@ -38,6 +38,15 @@ functions:
           path: idea
           method: get
 
+  getIdeas:
+    name: idea-box-api-get-ideas
+    handler: handler.getIdeas
+    description: get recent ideas
+    events:
+      - http:
+          path: ideas
+          method: get
+
   postIdea:
     name: idea-box-api-post-idea
     handler: handler.postIdea

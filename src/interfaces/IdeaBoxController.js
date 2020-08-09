@@ -13,11 +13,20 @@ const hello = async (event) => {
 const getIdea = async () => {
   try {
     const idea = await IdeaBoxService.getRandomIdea();
-    return respond(200, { ...idea });
+    return respond(200, idea);
   } catch (err) {
     return error(err);
   }
 }
+
+const getIdeas = async () => {
+  try {
+    const ideas = await IdeaBoxService.getRecentIdeas();
+    return respond(200, ideas);
+  } catch (err) {
+    return error(err);
+  }
+};
 
 const postIdea = async (event) => {
   try {
@@ -47,4 +56,4 @@ const postIdeaItems = async (event) => {
   }
 }
 
-module.exports = { hello, getIdea, postIdea, postIdeaItems };
+module.exports = { hello, getIdea, getIdeas, postIdea, postIdeaItems };
