@@ -38,6 +38,15 @@ functions:
           path: idea
           method: get
 
+  postIdeaItems:
+    name: idea-box-api-post-idea-items
+    handler: handler.postIdeaItems
+    description: post idea items
+    events:
+      - http:
+          path: idea/items
+          method: post
+
 custom:
   webpack:
     webpackConfig: ./webpack.config.js

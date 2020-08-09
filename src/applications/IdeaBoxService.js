@@ -6,6 +6,17 @@ const getRandomIdea = async () => {
   return { who, what };
 };
 
+const createItems = async (idea) => {
+  for (const [key, value] of Object.entries(idea)) {
+    const category = key.trim();
+    const text = value.trim();
+    const item = await IdeaBoxRepository.findByCategoryAndText(category, text);
+    if (!item) {
+      await IdeaBoxRepository.saveItem(category, text);
+    }
+  }
+}
+
 module.exports = {
-  getRandomIdea,
+  getRandomIdea, createItems,
 };

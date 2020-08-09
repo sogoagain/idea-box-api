@@ -1,4 +1,5 @@
 const { respond, error } = require('../utils/HttpInterfaces');
+const { validCategory, validLength } = require('../utils/Validation');
 
 const IdeaBoxService = require('../applications/IdeaBoxService');
 
@@ -18,4 +19,18 @@ const getIdea = async () => {
   }
 }
 
-module.exports = { hello, getIdea };
+const postIdeaItems = async (event) => {
+  try {
+    const idea = JSON.parse(event.body);
+    for (const [key, value] of Object.entries(idea)) {
+      validCategory(key);
+      validLength(value, 10);
+    }
+    await IdeaBoxService.createItems(idea);
+    return respond(201, {});
+  } catch (err) {
+    return error(err);
+  }
+}
+
+module.exports = { hello, getIdea, postIdeaItems };

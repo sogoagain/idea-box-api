@@ -39,8 +39,8 @@
     "start": "sls offline",
     "deploy": "sls deploy",
     "test": "jest",
-    "test:watch": "jest --watchAll",
-    "lint": "eslint --ext .js ."
+    "test:watch": "jest --watchAll --verbose",
+    "lint": "eslint --ext js ."
   },
   "repository": {
     "type": "git",
