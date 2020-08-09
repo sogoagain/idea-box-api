@@ -11,7 +11,7 @@ describe('IdeaBoxService', () => {
       findRandomByCategory.mockClear();
       findRandomByCategory.mockImplementation(async (category) => ({
         category,
-        uuid: '6aa3c8c3-372b-436c-a421-3ada7ddda724',
+        identifier: '6aa3c8c3-372b-436c-a421-3ada7ddda724',
         text: category,
       }));
     });
@@ -36,7 +36,7 @@ describe('IdeaBoxService', () => {
       beforeEach(() => {
         findByCategoryAndText.mockImplementation(async (category, text) => ({
           category,
-          uuid: '6aa3c8c3-372b-436c-a421-3ada7ddda724',
+          identifier: '6aa3c8c3-372b-436c-a421-3ada7ddda724',
           text: text,
         }));
       });

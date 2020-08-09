@@ -13,16 +13,16 @@ describe('DynamodbClient', () => {
   it('query by key condition', async () => {
     const { Items } = await ddb.query({
       TableName: process.env.DYANMODB_TABLE,
-      KeyConditionExpression: "#category = :category AND #uuid > :uuid",
+      KeyConditionExpression: "#category = :category AND #identifier > :identifier",
       FilterExpression: '#active = :active',
       ExpressionAttributeNames: {
         "#category": "category",
-        "#uuid": "uuid",
+        "#identifier": "identifier",
         "#active": "active",
       },
       ExpressionAttributeValues: {
         ":category": WHO.category,
-        ":uuid": '6aa3c8c3-372b-436c-a421-3ada7ddda723',
+        ":identifier": '6aa3c8c3-372b-436c-a421-3ada7ddda723',
         ":active": true,
       },
       Limit: 1,

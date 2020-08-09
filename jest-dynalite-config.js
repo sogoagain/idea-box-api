@@ -7,7 +7,7 @@ module.exports = {
           AttributeName: 'category',
           KeyType: 'HASH' },
         {
-          AttributeName: "uuid",
+          AttributeName: "identifier",
           KeyType: "RANGE",
         },
       ],
@@ -17,7 +17,7 @@ module.exports = {
           AttributeType: 'S',
         },
         {
-          AttributeName: 'uuid',
+          AttributeName: 'identifier',
           AttributeType: 'S',
         },
       ],

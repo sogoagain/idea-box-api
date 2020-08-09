@@ -5,8 +5,8 @@ const ddb = require('../utils/DynamodbClient');
 const findRandomByCategory = async (category) => {
   const uuid = uuidv4();
   const keyConditions = [
-    '#category = :category AND #uuid > :uuid',
-    '#category = :category AND #uuid <= :uuid',
+    '#category = :category AND #identifier > :identifier',
+    '#category = :category AND #identifier <= :identifier',
   ];
 
   for (const condition of keyConditions) {
@@ -16,12 +16,11 @@ const findRandomByCategory = async (category) => {
       FilterExpression: 'active = :active',
       ExpressionAttributeNames: {
         "#category": "category",
-        "#uuid": "uuid",
-        "#active": "active",
+        "#identifier": "identifier",
       },
       ExpressionAttributeValues: {
         ":category": category,
-        ":uuid": uuid,
+        ":identifier": uuid,
         ":active": true,
       },
       Limit: 1,
@@ -59,7 +58,7 @@ const saveItem = async (category, text) => {
     TableName: process.env.DYANMODB_TABLE,
     Item: {
       category,
-      uuid: uuidv4(),
+      identifier: uuidv4(),
       text,
       active: false,
     },
