@@ -9,8 +9,8 @@ const getRandomIdea = async () => {
 
 const getRecentIdeas = async () => {
   const ideas = await IdeaRepository.findTop5();
-  return ideas.map(({ who, what }) => ({
-    who, what,
+  return ideas.map(({ identifier, who, what }) => ({
+    id: identifier, who, what,
   }));
 };
 
