@@ -1,5 +1,3 @@
-[![HitCount](http://hits.dwyl.com/sogoagain/idea-box-api.svg)](http://hits.dwyl.com/sogoagain/idea-box-api)
-
 # '창업하자, 아이디어는 내게 맡겨.' API
 
 ## 접속 URL
